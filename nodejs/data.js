@@ -9,8 +9,8 @@ var localurl = process.env.NODE_SCHEDULER_HOST || '38.246.113.26',
 // Railway 内部端口
 var localport = parseInt(process.env.NODE_SCHEDULER_PORT || '8080');
 
-// 定时器，每1秒执行
-schedule.scheduleJob('*/1 * * * * *', function(){
+// 定时器，每3秒执行
+schedule.scheduleJob('*/3 * * * * *', function(){
     var option = {
             host: localurl,
             port: localport,
@@ -29,8 +29,8 @@ schedule.scheduleJob('*/1 * * * * *', function(){
     }).end();
 });
 
-// 定时器，每1秒执行
-schedule.scheduleJob('*/1 * * * * *', function(){
+// 定时器，每3秒执行
+schedule.scheduleJob('*/3 * * * * *', function(){
     var option = {
             host: localurl,
             port: localport,
@@ -49,8 +49,8 @@ schedule.scheduleJob('*/1 * * * * *', function(){
     }).end();
 });
 
-// 定时器，每1秒执行
-schedule.scheduleJob('*/1 * * * * *', function(){
+// 定时器，每3秒执行
+schedule.scheduleJob('*/3 * * * * *', function(){
     var option = {
             host: localurl,
             port: localport,
