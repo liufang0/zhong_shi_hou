@@ -12,8 +12,10 @@ runtime/temp/*
 .env
 !.env.example
 
-# 依赖目录（由 composer/npm 安装，禁止提交）
-vendor/
+# 依赖目录
+# 注意：vendor/ 必须提交，因为项目没有根级 composer.json，
+# Railway 部署时无法运行 composer install。
+# vendor/
 
 # 数据库转储（禁止提交）
 *.sql

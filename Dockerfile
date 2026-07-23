@@ -47,6 +47,9 @@ COPY deploy/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 WORKDIR /app
 COPY . /app
 
+# 修复文件权限：PHP-FPM 以 www-data 运行，需要读取 /app 下文件
+RUN chown -R www-data:www-data /app && chmod -R 755 /app
+
 # 删除可能有 open_basedir 的 .user.ini
 RUN rm -f /app/public/.user.ini
 
