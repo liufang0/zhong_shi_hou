@@ -3,6 +3,11 @@ set -e
 
 export PORT="${PORT:-8080}"
 
+# Fix file permissions at runtime
+chown -R www-data:www-data /app
+chmod -R 755 /app
+chmod -R 777 /app/runtime /tmp/runtime
+
 echo "[entrypoint] Preparing runtime directories..."
 rm -rf /tmp/runtime
 mkdir -p /tmp/runtime/cache /tmp/runtime/sess /tmp/runtime/log /tmp/runtime/temp
