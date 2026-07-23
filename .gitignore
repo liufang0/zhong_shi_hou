@@ -35,3 +35,6 @@ nohup.out
 # OS files
 .DS_Store
 Thumbs.db
+
+# PHP user.ini (contains open_basedir that breaks Railway deployment)
+.user.ini

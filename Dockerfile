@@ -51,7 +51,7 @@ COPY . /app
 RUN chown -R www-data:www-data /app && chmod -R 755 /app
 
 # 删除可能有 open_basedir 的 .user.ini
-RUN rm -f /app/public/.user.ini
+RUN rm -f /app/public/.user.ini /app/web/.user.ini /app/.user.ini
 
 # 目录权限
 RUN mkdir -p /app/runtime/cache /app/runtime/log /app/runtime/sess /app/runtime/temp \
