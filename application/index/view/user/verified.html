@@ -1,0 +1,244 @@
+{include file="public/header" nav="实名认证"}
+<link rel="stylesheet" type="text/css" href="__ROOT__/static/wap/css/tipmask.css">
+<link rel="stylesheet" type="text/css" href="__ROOT__/static/wap/css/box_pay.css">
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+		<style>
+			.upload{
+				width: 100%;
+				height: 200px;
+				overflow: hidden;
+				background-color:transparent;
+			}
+			.myfile{
+			    /*opacity: 0;*/
+			    /*width:10px;*/
+			    /*display:hidden;*/
+			    display:none;
+			}
+			.myfile1{
+			    /*opacity: 0;*/
+			    /*width:10px;*/
+			    /*display:hidden;*/
+			    display:none;
+			}
+		</style>
+<div id="app">
+    <div class="box">
+        <div class="jun-content">
+            <div class="f_box_addbank">
+                <div class="t_header">
+                    <span><img src="__ROOT__/static/wap/images/goback.png" alt="" onClick="javascript:history.back()"></span> 
+                    <span><i>实名认证</i></span>
+                </div>
+                <div class="f_content">
+                    <div style="padding: 1rem;text-align: center;">
+                        {if condition="$user['rz_status'] eq 0"}
+                        <p><img class="img" src="/static/wap/images/status_0.png" alt="" style="width:195px"/></p>
+                        {/if}
+                        {if condition="$user['rz_status'] eq 1"}
+                        <p><img class="img" src="/static/wap/images/status_1.png" alt="" style="width:195px"/></p>
+                        {/if}
+                        {if condition="$user['rz_status'] eq 2"}
+                        <p><img class="img" src="/static/wap/images/status_2.png" alt="" style="width:195px"/></p>
+                        {/if}
+                        {if condition="$user['rz_status'] eq 3"}
+                        <p><img class="img" src="/static/wap/images/status_3.png" alt="" style="width:195px"/></p>
+                        {/if}
+                    </div>
+                    {if condition="$user['rz_status'] eq 1 or $user['rz_status'] eq 2"}
+                    <ul>    
+                        <li>
+                            <label>姓名</label> 
+                            <span>{$user.name}</span>
+                        </li>
+                        <li>
+                            <label>身份证号</label> 
+                            <span>{$user.idcard}</span>
+                        </li>
+                    </ul>
+                    <div class="upload">
+                       <label for="myfile" style="margin-left: 2.5%;width:46%;position:relative;display:inline-block;">
+		        	        <img id="uploadAdd" style="width: 100%;height:100px;border-radius: 7px;" src="{$user.z_id_card}" alt="">
+                        </label>
+                        <label for="myfile1" style="margin-left: 3%;width:46%;relative;display:inline-block;">
+		        	        <img id="uploadAdd1" style="width:100%;height:100px;border-radius: 7px;" src="{$user.f_id_card}" alt="">
+                        </label>
+		             </div>
+                    <!--<div class="sure">-->
+                    <!--    <button id="sub_btn" type="button" class="el-button el-button--danger">确认 </button>-->
+                    <!--</div>-->
+                    {else /}
+                    <ul>    
+                        <li>
+                            <label>姓名</label> 
+                            <span><input type="text" name="name" id="name" value="" placeholder="输入姓名" onfocus="this.placeholder=''" onblur="this.placeholder='输入姓名'"></span>
+                        </li>
+                        <li>
+                            <label>身份证号</label> 
+                            <span><input type="text" name="idcard" id="idcard" value="" placeholder="输入身份证号" onfocus="this.placeholder=''" onblur="this.placeholder='输入身份证号'"></span>
+                        </li>
+                    </ul>
+                    <div class="upload">
+                        <label for="myfile" style="margin-left: 2.5%;width:46%">
+		        	        <img id="uploadAdd" style="width: 100%;height:100px;border-radius: 7px;" src="" alt="">
+                            <input type="file" name="myfile" id="myfile" class="myfile" onclick="handl(1)">
+                            <input type="hidden" id="z_id_card" name="z_id_card">
+                        </label>
+                        <label for="myfile1" style="margin-left: 3%;width:46%">
+		        	        <img id="uploadAdd1" style="width:100%;height:100px;border-radius: 7px;" src="" alt="">
+                            <input type="file" name="myfile1" id="myfile1" class="myfile1"  onclick="handl(1)">
+                            <input type="hidden" id="f_id_card" name="f_id_card">
+                        </label>
+		             </div>
+                    <div class="sure">
+                        <button id="sub_btn" type="button" class="el-button el-button--danger">确认 </button>
+                    </div>
+                    {/if}
+                </div>
+            </div>
+        </div>
+        {include file="public/footer" menu='user'}
+    </div>
+</div>
+<div class="tipMask hide">
+    <div class="cont">
+        <p class="title">温馨提示</p>
+        <p class="stitle contents"></p>
+        <div id="msgBtn">
+            <div class="confirm guanbi">确定</div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="__ROOT__/static/theme/index/js/jquery.js"></script>
+<script>
+	let myfile = $('#myfile')
+	let uoload_add=$('#uploadAdd')
+	myfile.parent().css({
+		'position': 'relative',
+		'display': 'inline-block'
+	})
+// 	myfile.css({
+// 		'position': 'absolute',
+// 		'left': '0',
+// 		'right': '0',
+// 		'top': '0',
+// 		'bottom': '0',
+// 		'opacity': '0'
+// 	})
+	/**
+	 * @description: 封装fetch
+	 * @param {Object} FetchConfig fetch config
+	 * @return {Promise} fetch result
+	 */
+	const requestApi = ({
+		url,
+		method = 'POST',
+		...fetchProps
+	}) => {
+	    return fetch(url, {
+				method,
+				...fetchProps
+		})
+		//返回请求成功的结果
+		.then(res => res && res.status === 200 && res.json())
+			.catch(err => alert('未知错误'))
+			.then(res => res)
+		}
+		const handleUploadFile = (formData = {}) =>
+		requestApi({
+			url: `/index/plugs/upload`,
+			method: 'POST',
+			body: formData
+		})
+	    myfile.change(function() {
+		let files = this.files[0]
+		let formData = new FormData()
+		formData.append('file', files) //这里面的'file'改成你需要的关键字
+		console.log(formData);
+		handleUploadFile(formData)
+			.then(res => {
+					console.log(res.url);
+					uoload_add.attr('src',res.url)
+					$('#z_id_card').val(res.url);
+			}).catch(err => alert('出错'))
+	    })
+	    
+	    let myfile1 = $('#myfile1');
+	    let uoload_add1=$('#uploadAdd1');
+	    myfile1.parent().css({
+		'position': 'relative',
+		'display': 'inline-block'
+    	})
+	    myfile1.change(function() {
+		let files = this.files[0]
+		let formData = new FormData()
+		formData.append('file', files) //这里面的'file'改成你需要的关键字
+		console.log(formData);
+		handleUploadFile(formData)
+			.then(res => {
+					console.log(res.url);
+					uoload_add1.attr('src',res.url)
+					$('#f_id_card').val(res.url);
+			}).catch(err => alert('出错'))
+	    })
+</script>
+
+<script type="text/javascript">
+    $(function () {
+	    let uoload_add=$('#uploadAdd')
+		uoload_add.attr('src',"{$user['rz_status']>0 && $user['rz_status']<3&& $user['z_id_card']?$user['z_id_card']:'/static/wap/images/z_idcard.png'}")
+		
+	    let uoload_add1=$('#uploadAdd1')
+		uoload_add1.attr('src',"{$user['rz_status']>0 && $user['rz_status']<3 && $user['f_id_card']?$user['f_id_card']:'/static/wap/images/f_idcard.png'}")
+        $("#sub_btn").on("click", function () {
+            var name = $("#name").val();
+            var idcard = $("#idcard").val();
+            var z_id_card = $("#z_id_card").val();
+            var f_id_card = $("#f_id_card").val();
+            if (name.length < 2) {
+                msg("错误", "输入姓名！", 1);
+                return false;
+            }
+            if (idcard.length < 15) {
+                msg("错误", "输入身份证号！", 1);
+                return false;
+            }
+            if (z_id_card.length < 1) {
+                msg("错误", "上传身份证正面！", 1);
+                return false;
+            }
+            if (f_id_card.length < 1) {
+                msg("错误", "上传身份证反面！", 1);
+                return false;
+            }
+            var url = "/index/user/verified";
+            $.ajax({
+                type : "POST",
+                url : url,
+                data: {'name':name,'idcard':idcard,'z_id_card':z_id_card,'f_id_card':f_id_card},
+                dataType : "json",
+                success : function(result){
+                    if(result.code == 1){
+                        window.location.href = "/index/user/index"
+                    }else{
+                        msg("提示",result.info,1);
+                    }
+                }
+            });
+        })
+    })
+
+    function msg(title, content, type, url) {
+        $(".contents").html(content);
+        if (type == 1) {
+            var btn = '<div class="confirm guanbi" onclick="$(\'.tipMask\').hide();">确定</div>';
+        }
+        else {
+            var btn = '<div class="confirm guanbi" onclick="window.location.href=\'' + url + '\'">确定</div>';
+        }
+        $("#msgBtn").html(btn);
+        $(".tipMask").show();
+    }
+</script>
+</html>

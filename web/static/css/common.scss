@@ -1,0 +1,143 @@
+/* 浮动布局 */
+.float-left {float: left;}
+.float-right {float: right;}
+.float-clear::after,
+.float-clear::before {content: '';display: block;clear: both;}
+/* flex布局 */
+.m-flex-box{display: flex;align-items: center;flex-wrap: wrap;}
+.m-flex-box>*{flex-shrink: 0;}
+.m-flex {display: flex;align-items: center;}
+.m-flex-col {flex-direction: column;}
+.m-row-center {justify-content: center;}
+.m-row-between {justify-content: space-between;}
+.m-row-right {justify-content: flex-end;}
+.m-col-top {align-items: flex-start;}
+.m-col-bottom {align-items: flex-end;}
+.m-flex-wrap {flex-wrap: wrap;}
+.m-flex-shrink {flex-shrink: 0;}
+.m-son-shrink *,.m-son-shrink view{flex-shrink: 0;}
+.m-flex-1 {flex: 1;}
+.m-flex-2 {flex: 2;}
+.m-flex-3 {flex: 3;}
+/* table布局 */
+.m-table {display: table;width: 100%;}
+.m-tr {display: table-row;}
+.m-td {display: table-cell;padding: 1em 0;vertical-align: middle;}
+/* 图片样式 */
+image,img{vertical-align: middle;}
+.img-row,.img-col{overflow: hidden;}
+.img-row image{width: 100%;}
+.img-col image{height: 100%;}
+/* 文字样式 */
+.text-center{text-align: center;}
+.text-left{text-align: left;}
+.text-right{text-align: right;}
+.text-center-col>*{
+	vertical-align: middle;
+}
+/* 字体图标对齐 */
+.iconfont{
+	vertical-align: middle;
+}
+/* 文字大小 */
+.h1{font-size: 10px;font-weight: 600;}
+.h2{font-size: 12px;font-weight: 600;}
+.h3{font-size: 14px;font-weight: 600;}
+.h4{font-size: 16px;font-weight: 600;}
+.h5{font-size: 18px;font-weight: 600;}
+.h6{font-size: 20px;font-weight: 600;}
+.h7{font-size: 22px;font-weight: 600;}
+.p1{font-size: 10px;}
+.p2{font-size: 12px;}
+.p3{font-size: 14px;}
+.p4{font-size: 16px;}
+.p5{font-size: 18px;}
+.p6{font-size: 20px;}
+.p7{font-size: 22px;}
+
+.line-wrap {
+    /*1. 先强制一行内显示文本*/
+    white-space: nowrap;
+    /*2. 超出的部分隐藏*/
+    overflow: hidden;
+    /*3. 文字用省略号替代超出的部分*/
+    text-overflow: ellipsis;
+}
+
+.line-wrap-2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.line-wrap-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.line-wrap-4 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* 外间距样式 */
+.m-center{margin: 0 auto;}
+.m-right{margin-left: auto !important;}
+.m-left{margin-right: auto;}
+.m-bottom{margin-top: auto;}
+.m-top{margin-bottom: auto;}
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+}
+
+/* 后期添加的滚动条 */
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+/* input文字提示 */
+
+/* 全局字体 */
+html,body,page,.uni-page-body{
+	background-color: $uni-bg-color;
+	color: #fff;
+	font-size: 14px;
+}
+/* 转换盒模型 */
+view,text{box-sizing: border-box;}
+
+.model{margin: $m-margin;}
+.model-row{
+	margin: 0 $m-margin;
+}
+
+.u-avatar{
+	image{
+		min-width:100%;
+		min-height: 100%;
+	}
+	overflow: hidden;
+}

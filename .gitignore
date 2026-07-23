@@ -1,0 +1,35 @@
+# Runtime files (generated at runtime, do not commit)
+runtime/cache/*
+runtime/log/*
+runtime/sess/*
+runtime/temp/*
+!runtime/cache/.gitkeep
+!runtime/log/.gitkeep
+!runtime/sess/.gitkeep
+!runtime/temp/.gitkeep
+
+# 环境变量（包含凭据，禁止提交）
+.env
+!.env.example
+
+# 依赖目录（由 composer/npm 安装，禁止提交）
+vendor/
+
+# 数据库转储（禁止提交）
+*.sql
+
+# 证书文件（禁止提交）
+*.p12
+*.pem
+*.key
+
+# Node modules
+nodejs/node_modules/
+
+# Logs
+nohup.out
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,148 @@
+{include file="public/header" nav="我的钱包"}
+<link rel="stylesheet" type="text/css" href="__ROOT__/static/theme/index/css/mine.css"/>
+<link rel="stylesheet" type="text/css" href="__ROOT__/static/theme/index/css/footer.css"/>
+<script type="text/javascript" src="__ROOT__/static/theme/index/js/jquery.js"></script>
+<script type="text/javascript" src="__ROOT__/static/theme/index/js/font.js"></script>
+<script type="text/javascript" src="__ROOT__/static/theme/index/js/public.js"></script>
+</head>
+<style type="text/css">
+    .bar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+        height: 45px;
+        color: #fff;
+        background: linear-gradient(to right, #3476fe, #34c7fe) !important;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+    #alltit {
+        position: absolute;
+        z-index: 19;
+        width: 100%;
+        text-align: center;
+        display: inline-block;
+        line-height: 45px;
+        font-size: 16px;
+        color: #fff;
+    }
+    .page, .page-group {
+        box-sizing: border-box;
+        margin: 0 auto;
+        background-color: #efefed;
+        overflow: hidden;
+    }
+    #main_content {
+        padding-bottom: 1rem;
+        width: 100%;
+        margin: 0 auto;
+    }
+    img {
+        vertical-align: middle;
+    }
+    .contentlist {
+        overflow: hidden;
+        width: 94%;
+        margin: 150px auto;
+    }
+    .contentlist li {
+        background-color: #fff;
+        width: 49%;
+        float: left;
+        padding: 0.4rem 0;
+        border-radius: 0.2rem;
+        position: relative;
+        margin-bottom: 0.2rem;
+    }
+    .contentlist li img {
+        position: absolute;
+        width: 28px;
+        right: 0.22rem;
+        top: 0.3rem;
+    }
+    .contentlist li .text1 {
+        margin-left: .3rem;
+        color: #000000;
+        display: block;
+        font-size: 14px;
+    }
+    .contentlist li .text2 {
+        color: #000000;
+        display: block;
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 0.2rem;
+        margin-left: .3rem;
+    }
+</style>
+<body>
+<header class="bar bar-nav">
+    <a id="alltit">我的钱包</a>
+</header>
+<div class="page">
+    <div class="content" id="main_content">
+        <div style="width: 100%;height: 2rem;background: linear-gradient(to right, #3476FE, #34C7FE) !important;margin-bottom: 2.03rem;">
+        </div>
+        <div style="width:94%;margin: 0 3%;background:url('/static/theme/index/img/panbg.png') no-repeat center center;background-size: 100% 100%;height: 150px;position:absolute;top: 1.1rem;padding-top: 0.6rem;">
+            <div style="font-size: 16px;color: #fff;margin-left: 0.4rem">账户余额(元)<img class="ybtn cur" src="/static/theme/index/img/yopen.png" style="width: 20px;margin-top:-0.05rem;margin-left: 0.1rem" alt=""></div>
+            <div style="font-size: 28px;color: #fff;margin-left: 0.4rem;margin-top:0.1rem;">
+                {$user.money}</div>
+            <div style="width: 100%;overflow:hidden;position:absolute;bottom: 0.36rem">
+                <a href="/index/user/recharge">
+                    <div style="float: left;width: 49.5%;text-align:center;font-size: 14px;color: #fff;border-right: 1px solid #fff">
+                        <img style="width: 25px;margin-top:-0.05rem;margin-right:0.1rem" src="/static/theme/index/img/czico.png" alt="">充值</div>
+                </a>
+                <a href="/index/user/cash">
+                    <div style="float:right;width: 50%;text-align:center;font-size: 14px;color: #fff">
+                        <img style="width: 25px;margin-top:-0.05rem;margin-right:0.1rem" src="/static/theme/index/img/txico.png" alt="">提现</div>
+                </a>
+            </div>
+        </div>
+        <ul class="contentlist">
+            <li style="margin-right: 1%;">
+                <img src="/static/theme/index/img/listico1.png" alt="">
+                <span class="text1">矿机保证金</span>
+                <span class="text2">{$kjbz}</span>
+            </li>
+            <li style="margin-left: 1%;">
+                <img src="/static/theme/index/img/listico7.png" alt="">
+                <span class="text1">合约保证金</span>
+                <span class="text2">{$hybz}</span>
+            </li>
+            <li style="margin-right: 1%;">
+                <img src="/static/theme/index/img/listico2.png" alt="">
+                <span class="text1">BTC钱包</span>
+                <span class="text2">{$user.btc}</span>
+            </li>
+            <li style="margin-left: 1%;">
+                <img src="/static/theme/index/img/listico4.png" alt="">
+                <span class="text1">BTC累计产量</span>
+                <span class="text2">{$kjcl}</span>
+            </li>
+            <li style="margin-right: 1%;">
+                <img src="/static/theme/index/img/listico3.png" alt="">
+                <span class="text1">矿机收益</span>
+                <span class="text2">{$kjsy}</span>
+            </li>
+            <li style="margin-left: 1%;">
+                <img src="/static/theme/index/img/listico8.png" alt="">
+                <span class="text1">合约收益</span>
+                <span class="text2">{$hysy}</span>
+            </li>
+            <li style="margin-right: 1%;">
+                <img src="/static/theme/index/img/listico5.png" alt="">
+                <span class="text1">推荐奖励</span>
+                <span class="text2">0.00</span>
+            </li>
+            <li>
+                <img src="/static/theme/index/img/listico6.png" alt="">
+                <span class="text1">获得积分</span>
+                <span class="text2">{$user.integral}</span>
+            </li>
+        </ul>
+    </div>
+</div>
+{include file="public/footer" menu='wallet'}
+</body>
+</html>

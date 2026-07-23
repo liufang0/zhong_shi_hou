@@ -1,0 +1,17 @@
+# 忽略不需要部署的文件
+.git
+.gitignore
+*.md
+liu.sql
+docker-compose.yml
+deploy/apache-vhost.conf
+deploy/deploy-do.sh
+runtime/cache/*
+runtime/log/*
+runtime/sess/*
+runtime/temp/*
+nodejs/node_modules
+nohup.out
+*.png
+*.pyc
+start.sh

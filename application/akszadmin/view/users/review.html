@@ -1,0 +1,55 @@
+<form class="layui-form layui-card" action="{:request()->url()}" data-auto="true" method="post" autocomplete="off">
+    <div class="layui-card-body padding-left-40">
+        <div class="layui-card-body" style="padding-top:0px;">
+            <div class="layui-row margin-bottom-15">
+                <label class="layui-col-xs2 think-form-label">姓名</label>
+                <label class="layui-col-xs10">
+                    <input name="name" value='{$user.name|default=""}'  class="layui-input">
+                </label>
+            </div>
+            <div class="layui-row margin-bottom-15">
+                <label class="layui-col-xs2 think-form-label">身份证号码</label>
+                <label class="layui-col-xs10">
+                    <input name="idcard" value='{$user.idcard|default=""}' class="layui-input">
+                </label>
+            </div>
+            <div class="layui-row margin-bottom-15">
+                <label class="layui-col-xs2 think-form-label">身份证正面照</label>
+                <label class="layui-col-xs10">
+                    <img data-tips-image src="{$user.z_id_card}" height="150px" >
+                </label>
+            </div>
+            <div class="layui-row margin-bottom-15">
+                <label class="layui-col-xs2 think-form-label">身份证反面照</label>
+                <label class="layui-col-xs10">
+                     <img data-tips-image src="{$user.f_id_card}" height="150px">
+                </label>
+            </div>
+            <div class="layui-row margin-bottom-15">
+                <label class="layui-col-xs2 think-form-label">审核</label>
+                <label class="layui-col-xs10">
+                    <select name="rz_status" required>
+                        <option value="2">通过</option>
+                        <option value="3">驳回</option>
+                    </select>
+                </label>
+            </div>
+            <br>
+            <br>
+        </div>
+    </div>
+
+    <div class="hr-line-dashed"></div>
+    {notempty name='$id'}<input type='hidden' value='{$id}' name='id'>{/notempty}
+
+    <div class="layui-form-item text-center">
+        <button class="layui-btn" type='submit'>保存数据</button>
+        <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消编辑吗？" data-close>取消编辑</button>
+    </div>
+</form>
+
+{block name='script'}
+<script>
+    window.form.render();
+</script>
+{/block}

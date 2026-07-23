@@ -1,0 +1,72 @@
+# 记录“原始请求行”（含真实路由与查询串），便于定位 404 到底是哪个 URL
+# 默认格式会记录重写后的 /index.php，导致所有请求都变成 "GET /index.php"，无法排查
+log_format tp_route '$remote_addr - $remote_user [$time_local] '
+                    '"$request" $status $body_bytes_sent '
+                    'rt=$request_time uri=$uri args=$args';
+
+server {
+    listen __PORT__ default_server;
+    server_name _;
+
+    # 访问日志：使用 tp_route 格式输出到 stdout（docker/railway 可直接查看）
+    access_log /dev/stdout tp_route;
+    error_log  /dev/stderr warn;
+
+    # ===== PHP 后端 API =====
+    root /app/public;
+    index index.php index.html;
+
+    # 静态资源缓存
+    location ~* \.(jpg|jpeg|gif|png|css|js|ico|xml|svg|woff|woff2|ttf|eot|mp3|mp4)$ {
+        expires 30d;
+        access_log off;
+        try_files $uri =404;
+    }
+
+    # 上传文件目录
+    location /upload/ {
+        alias /app/public/upload/;
+        expires 30d;
+    }
+
+    # 静态后台资源
+    location /static/ {
+        alias /app/public/static/;
+        expires 7d;
+    }
+
+    # ===== 前端 SPA（web 目录）=====
+    # 如果你想用同一个域名的 /web/ 路径提供前端
+    location /web/ {
+        alias /app/web/;
+        try_files $uri $uri/ /web/index.html;
+        expires 7d;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.php?s=$uri&$args;
+    }
+
+    # PHP-FPM 处理
+    location ~ \.php$ {
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+
+        # 超时设置
+        fastcgi_connect_timeout 300;
+        fastcgi_send_timeout 300;
+        fastcgi_read_timeout 300;
+    }
+
+    # 禁止访问隐藏文件
+    location ~ /\. {
+        deny all;
+    }
+
+    # 禁止直接访问 runtime 目录
+    location ~ ^/runtime/ {
+        deny all;
+    }
+}
